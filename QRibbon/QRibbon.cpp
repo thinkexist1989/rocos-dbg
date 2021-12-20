@@ -62,6 +62,7 @@ QRibbon::QRibbon()
     // 设置风格主题颜色
     _styleMenu = new QMenu(this);
     _styleMenu->setStyleSheet("QMenu::item{ color:black }");
+//    _styleMenu->setStyleSheet(tr("QMenu{ font:16pt \'腾讯体\' }"));
     auto styleActionGroup = new QActionGroup(_styleMenu);
     styleActionGroup->addAction(_styleMenu->addAction(tr("Blue"), [&]()
     {
@@ -400,7 +401,7 @@ bool QRibbon::eventFilter(QObject *tgt, QEvent *e)
 {
     if (tgt == _->_mainWindow && e->type() == QEvent::WindowStateChange)
     {
-        ui->pushButtonFullScreen->setText(_->_mainWindow->windowState() & (Qt::WindowFullScreen | Qt::WindowMaximized) ? "⧉" : "☐");
+//        ui->pushButtonFullScreen->setText(_->_mainWindow->windowState() & (Qt::WindowFullScreen | Qt::WindowMaximized) ? "⧉" : "☐");
     }
 
     return QMenuBar::eventFilter(tgt, e);

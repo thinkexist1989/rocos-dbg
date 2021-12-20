@@ -51,5 +51,6 @@
         <file>res/rocos-dbg-logging.jpg</file>
         <file>res/light_green.png</file>
         <file>res/light_red.png</file>
+        <file>res/stop.png</file>
     </qresource>
 </RCC>

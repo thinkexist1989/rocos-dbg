@@ -24,13 +24,22 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #    endif()
 #endif()
 
-find_package(Qt5 COMPONENTS Widgets Network REQUIRED)
+if(WIN32)
+    set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+endif()
+
+    find_package(Qt5 COMPONENTS Widgets Network REQUIRED)
 
 add_subdirectory(QRibbon)
 
 ############################
 #####    Protocol      #####
 ############################
+
+if(UNIX AND NOT APPLE)
+    set(CMAKE_PREFIX_PATH "/opt/grpc")
+endif()
+include(cmake/common.cmake) # gRPC
 
 file(GLOB PROTO_FILES protos/*.proto) # protobuf
 file(GLOB GRPC_FILES protos/*_service.proto) # gRPC
@@ -87,7 +96,6 @@ add_library(protocol
         ${PROTO_HDRS}
         ${GRPC_SRCS}
         ${GRPC_HRDS}
-        src/robot_service.cpp
         )
 target_link_libraries(protocol
         PUBLIC

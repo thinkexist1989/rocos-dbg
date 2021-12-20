@@ -12,10 +12,10 @@
   </property>
   <property name="font">
    <font>
-    <family>Arial</family>
+    <family>Microsoft YaHei UI</family>
     <pointsize>11</pointsize>
-    <weight>75</weight>
-    <bold>true</bold>
+    <weight>50</weight>
+    <bold>false</bold>
    </font>
   </property>
   <property name="windowTitle">

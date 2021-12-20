@@ -22,6 +22,11 @@
     <height>16777215</height>
    </size>
   </property>
+  <property name="font">
+   <font>
+    <family>腾讯体</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -63,6 +68,14 @@
        <width>0</width>
        <height>161</height>
       </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Microsoft YaHei UI</family>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
      </property>
      <property name="autoFillBackground">
       <bool>false</bool>
@@ -460,7 +473,7 @@ QProgressBar::chunk {
 }
 
 /**********复选框**********/
-QCheckBox {
+/*QCheckBox {
   spacing: 5px;
 }
 
@@ -492,9 +505,13 @@ QCheckBox::indicator:unchecked {
 QCheckBox::indicator:unchecked:hover {
   image: url(:/White/checkBox);
 }
+*/
+
 /*QCheckBox::indicator:unchecked:pressed {
         image: url(:/White/checkBoxPressed);
 }*/
+
+/*
 QCheckBox::indicator:checked {
   image: url(:/White/checkBoxChecked);
 }
@@ -502,6 +519,8 @@ QCheckBox::indicator:checked {
 QCheckBox::indicator:checked:hover {
   image: url(:/White/checkBoxChecked);
 }
+*/
+
 /*QCheckBox::indicator:checked:pressed {
         image: url(:/White/checkBoxCheckedPressed);
 }
@@ -920,7 +939,7 @@ QWidget#widgetContainer,QWidget#widgetContainer &gt; *{
 	background:rgb(183,71,42);
 	background:rgb(43,87,154);
 	color:#fff;
-	font-family:'simhei';
+	/*font-family:'simhei'; */
 	font-size:11pt;
 }
 
@@ -1256,6 +1275,7 @@ QPushButton#pushButtonMinimizeTab:hover,QPushButton#pushButtonMaxTab:hover{
          <widget class="QLabel" name="labelTitle">
           <property name="font">
            <font>
+            <family>Microsoft YaHei UI</family>
             <weight>75</weight>
             <bold>true</bold>
            </font>
@@ -1284,7 +1304,7 @@ QPushButton#pushButtonMinimizeTab:hover,QPushButton#pushButtonMaxTab:hover{
           </property>
           <property name="font">
            <font>
-            <family>黑体</family>
+            <family>腾讯体</family>
             <pointsize>16</pointsize>
             <weight>50</weight>
             <italic>false</italic>
@@ -1292,7 +1312,8 @@ QPushButton#pushButtonMinimizeTab:hover,QPushButton#pushButtonMaxTab:hover{
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">font: 16pt &quot;黑体&quot;;</string>
+           <string notr="true">/*font: 16pt &quot;黑体&quot;; */
+font: 16pt &quot;腾讯体&quot;;</string>
           </property>
           <property name="text">
            <string>☺</string>
@@ -1318,6 +1339,13 @@ QPushButton#pushButtonMinimizeTab:hover,QPushButton#pushButtonMaxTab:hover{
             <width>36</width>
             <height>32</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>腾讯体</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
           </property>
           <property name="styleSheet">
            <string notr="true"/>
@@ -1347,6 +1375,13 @@ QPushButton#pushButtonMinimizeTab:hover,QPushButton#pushButtonMaxTab:hover{
             <height>32</height>
            </size>
           </property>
+          <property name="font">
+           <font>
+            <family>腾讯体</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>☐</string>
           </property>
@@ -1371,6 +1406,13 @@ QPushButton#pushButtonMinimizeTab:hover,QPushButton#pushButtonMaxTab:hover{
             <width>36</width>
             <height>32</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>腾讯体</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
           </property>
           <property name="text">
            <string>×</string>
@@ -1403,6 +1445,13 @@ QPushButton#pushButtonMinimizeTab:hover,QPushButton#pushButtonMaxTab:hover{
             <width>16777215</width>
             <height>34</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Microsoft YaHei UI</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
           </property>
           <property name="styleSheet">
            <string notr="true"/>
@@ -1454,6 +1503,13 @@ QPushButton#pushButtonMinimizeTab:hover,QPushButton#pushButtonMaxTab:hover{
             <height>6666</height>
            </size>
           </property>
+          <property name="font">
+           <font>
+            <family>Microsoft YaHei UI</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="styleSheet">
            <string notr="true"/>
           </property>
@@ -1467,6 +1523,13 @@ QPushButton#pushButtonMinimizeTab:hover,QPushButton#pushButtonMaxTab:hover{
            <bool>true</bool>
           </property>
           <widget class="QWidget" name="tab">
+           <property name="font">
+            <font>
+             <family>Microsoft YaHei UI</family>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
            <attribute name="title">
             <string>文件</string>
            </attribute>
@@ -1485,6 +1548,13 @@ QPushButton#pushButtonMinimizeTab:hover,QPushButton#pushButtonMaxTab:hover{
             </property>
             <item>
              <widget class="QToolButton" name="toolButton_4">
+              <property name="font">
+               <font>
+                <family>Microsoft YaHei UI</family>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="styleSheet">
                <string notr="true"/>
               </property>
@@ -1493,7 +1563,7 @@ QPushButton#pushButtonMinimizeTab:hover,QPushButton#pushButtonMaxTab:hover{
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>../../../../workspace/UMVision/UMVision/icon/folder-open.png</normaloff>../../../../workspace/UMVision/UMVision/icon/folder-open.png</iconset>
+                <normaloff>../../../workspace/UMVision/UMVision/icon/folder-open.png</normaloff>../../../workspace/UMVision/UMVision/icon/folder-open.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -1517,6 +1587,13 @@ QPushButton#pushButtonMinimizeTab:hover,QPushButton#pushButtonMaxTab:hover{
             </item>
             <item>
              <widget class="QToolButton" name="toolButton_5">
+              <property name="font">
+               <font>
+                <family>Microsoft YaHei UI</family>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="styleSheet">
                <string notr="true"/>
               </property>
@@ -1525,7 +1602,7 @@ QPushButton#pushButtonMinimizeTab:hover,QPushButton#pushButtonMaxTab:hover{
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>../../../../workspace/UMVision/UMVision/icon/paste.png</normaloff>../../../../workspace/UMVision/UMVision/icon/paste.png</iconset>
+                <normaloff>../../../workspace/UMVision/UMVision/icon/paste.png</normaloff>../../../workspace/UMVision/UMVision/icon/paste.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -1577,6 +1654,13 @@ width:2px;</string>
             </item>
             <item>
              <widget class="QToolButton" name="toolButton_6">
+              <property name="font">
+               <font>
+                <family>Microsoft YaHei UI</family>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="styleSheet">
                <string notr="true"/>
               </property>
@@ -1585,7 +1669,7 @@ width:2px;</string>
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>../../../../workspace/UMVision/UMVision/icon/close.png</normaloff>../../../../workspace/UMVision/UMVision/icon/close.png</iconset>
+                <normaloff>../../../workspace/UMVision/UMVision/icon/close.png</normaloff>../../../workspace/UMVision/UMVision/icon/close.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -1609,6 +1693,13 @@ width:2px;</string>
             </item>
             <item>
              <widget class="QToolButton" name="toolButton_7">
+              <property name="font">
+               <font>
+                <family>Microsoft YaHei UI</family>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="styleSheet">
                <string notr="true"/>
               </property>
@@ -1617,7 +1708,7 @@ width:2px;</string>
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>../../../../workspace/UMVision/UMVision/icon/close.png</normaloff>../../../../workspace/UMVision/UMVision/icon/close.png</iconset>
+                <normaloff>../../../workspace/UMVision/UMVision/icon/close.png</normaloff>../../../workspace/UMVision/UMVision/icon/close.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -1661,26 +1752,51 @@ width:2px;</string>
            </layout>
           </widget>
           <widget class="QWidget" name="tab_2">
+           <property name="font">
+            <font>
+             <family>腾讯体</family>
+            </font>
+           </property>
            <attribute name="title">
             <string>编辑</string>
            </attribute>
           </widget>
           <widget class="QWidget" name="tab_3">
+           <property name="font">
+            <font>
+             <family>腾讯体</family>
+            </font>
+           </property>
            <attribute name="title">
             <string>窗体</string>
            </attribute>
           </widget>
           <widget class="QWidget" name="tab_4">
+           <property name="font">
+            <font>
+             <family>腾讯体</family>
+            </font>
+           </property>
            <attribute name="title">
             <string>视图</string>
            </attribute>
           </widget>
           <widget class="QWidget" name="tab_5">
+           <property name="font">
+            <font>
+             <family>腾讯体</family>
+            </font>
+           </property>
            <attribute name="title">
             <string>设置</string>
            </attribute>
           </widget>
           <widget class="QWidget" name="tab_6">
+           <property name="font">
+            <font>
+             <family>腾讯体</family>
+            </font>
+           </property>
            <attribute name="title">
             <string>帮助</string>
            </attribute>
@@ -1700,6 +1816,13 @@ width:2px;</string>
             <width>16777215</width>
             <height>16777215</height>
            </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Microsoft YaHei UI</family>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
           </property>
           <property name="styleSheet">
            <string notr="true">.QWidget{
@@ -1755,6 +1878,12 @@ border-left:1px solid gray;
           <width>16777215</width>
           <height>1</height>
          </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>simhei</family>
+          <pointsize>11</pointsize>
+         </font>
         </property>
        </widget>
       </item>
