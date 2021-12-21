@@ -64,6 +64,36 @@ const QString ConnectDialog::getJointStatus(int id)
     }
 }
 
+void ConnectDialog::powerOn()
+{
+    RobotCommandRequest request;
+    RobotCommandResponse response;
+
+    request.mutable_command()->mutable_enabled();
+
+    ClientContext context; //这个只能使用一次，每次请求都需要重新创建
+    Status status = _stub->WriteRobotCommmand(&context, request, &response);
+
+    if(status.ok()) {
+        std::cout << "Send command Ok" << std::endl;
+    }
+}
+
+void ConnectDialog::powerOff()
+{
+    RobotCommandRequest request;
+    RobotCommandResponse response;
+
+    request.mutable_command()->mutable_disabled();
+
+    ClientContext context; //这个只能使用一次，每次请求都需要重新创建
+    Status status = _stub->WriteRobotCommmand(&context, request, &response);
+
+    if(status.ok()) {
+        std::cout << "Send command Ok" << std::endl;
+    }
+}
+
 void ConnectDialog::on_connectButton_clicked()
 {
     _channel.reset();
@@ -113,10 +143,10 @@ void ConnectDialog::getRobotState()
     Status status = _stub->ReadRobotState(&context, request, &response);
     if (status.ok()) {
         emit newStateComming();
-        std::cout << "Joint state size: " << response.robot_state().joint_states_size() << std::endl;
-        std::cout << "Joint state status: " << response.robot_state().joint_states(0).status() << std::endl;
-        std::cout << "slave num: " << response.robot_state().hw_state().slave_num() << std::endl;
-        std::cout << "hw type: " << response.robot_state().hw_state().hw_type() << std::endl;
-        std::cout << "curr cycle time: " << response.robot_state().hw_state().current_cycle_time() << std::endl;
+//        std::cout << "Joint state size: " << response.robot_state().joint_states_size() << std::endl;
+//        std::cout << "Joint state status: " << response.robot_state().joint_states(0).status() << std::endl;
+//        std::cout << "slave num: " << response.robot_state().hw_state().slave_num() << std::endl;
+//        std::cout << "hw type: " << response.robot_state().hw_state().hw_type() << std::endl;
+//        std::cout << "curr cycle time: " << response.robot_state().hw_state().current_cycle_time() << std::endl;
     }
 }

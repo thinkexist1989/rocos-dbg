@@ -690,7 +690,7 @@
              <item>
               <widget class="QPushButton" name="enableBtn">
                <property name="text">
-                <string>    Enable</string>
+                <string>  Disabled</string>
                </property>
                <property name="icon">
                 <iconset resource="../res.qrc">

@@ -18,6 +18,10 @@ using rocos::RobotService;
 using rocos::RobotStateRequest;
 using rocos::RobotStateResponse;
 
+using rocos::RobotCommand;
+using rocos::RobotCommandRequest;
+using rocos::RobotCommandResponse;
+
 namespace Ui {
 class ConnectDialog;
 }
@@ -64,6 +68,10 @@ public:
     inline const double  getJointVelocity(int id) { return response.robot_state().joint_states(id).velocity(); }
     inline const double  getJointTorque(int id) { return response.robot_state().joint_states(id).acceleration(); }
     inline const double  getJointLoad(int id) { return response.robot_state().joint_states(id).load(); }
+
+
+    void powerOn();
+    void powerOff();
 
 
     inline void shutdown() { timerState->stop(); _channel.reset(); _stub.release(); emit connectState(false); }

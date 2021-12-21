@@ -30,6 +30,8 @@ private slots:
 
     void on_driveList_currentRowChanged(int currentRow);
 
+    void on_enableBtn_clicked();
+
 private:
     Ui::RocosMainWindow *ui;
     AboutDialog* aboutDlg = Q_NULLPTR;

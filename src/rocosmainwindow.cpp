@@ -82,9 +82,13 @@ void RocosMainWindow::updateRobotState()
 
         if(connectDlg->getJointStatus(drivePropId).contains("Enabled")) {
             setDriveStatusViz(true);
+            ui->enableBtn->setText(tr("  Enabled"));
+            ui->enableBtn->setIcon(QIcon(":/res/light_green.png"));
         }
         else {
             setDriveStatusViz(false);
+            ui->enableBtn->setText(tr("  Disabled"));
+            ui->enableBtn->setIcon(QIcon(":/res/light_red.png"));
         }
 
         ui->axisState->setText(connectDlg->getJointStatus(drivePropId));
@@ -137,4 +141,19 @@ void RocosMainWindow::on_driveList_currentRowChanged(int currentRow)
     drivePropId = currentRow;
     ui->tabWidget->setTabText(0, tr("Single Axis Motion [%1]").arg(ui->driveList->currentItem()->text()));
 
+}
+
+void RocosMainWindow::on_enableBtn_clicked()
+{
+    if(drivePropId == -1) {
+        return;
+    }
+
+    if(connectDlg->getJointStatus(drivePropId).contains("Enabled")) {
+        connectDlg->powerOff();
+
+    }
+    else {
+        connectDlg->powerOn();
+    }
 }
