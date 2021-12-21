@@ -1478,10 +1478,10 @@ font: 16pt &quot;腾讯体&quot;;</string>
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true"/>
+            <string notr="true">image: url(:/Resource/icon/arrow-down.png);</string>
            </property>
            <property name="text">
-            <string>⮟</string>
+            <string>▼</string>
            </property>
            <property name="flat">
             <bool>true</bool>
@@ -1855,7 +1855,7 @@ border-left:1px solid gray;
             <string notr="true"/>
            </property>
            <property name="text">
-            <string>⮝</string>
+            <string>▲</string>
            </property>
            <property name="flat">
             <bool>true</bool>

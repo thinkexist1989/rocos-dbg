@@ -27,5 +27,7 @@
         <file>Resource/icon/branch-open.png</file>
         <file>Resource/icon/vline.png</file>
         <file>Resource/icon/unknow.png</file>
+        <file>Resource/icon/arrow-down.png</file>
+        <file>Resource/icon/arrow-up.png</file>
     </qresource>
 </RCC>

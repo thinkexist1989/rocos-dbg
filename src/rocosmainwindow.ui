@@ -50,121 +50,11 @@
           <property name="title">
            <string>Status-Motion</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_11" columnstretch="2,0,2,1">
-           <item row="0" column="0">
-            <layout class="QGridLayout" name="gridLayout_10">
-             <item row="0" column="0">
-              <widget class="QLabel" name="label">
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <property name="text">
-                <string>Actual Position:</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="lineEdit">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="2">
-              <widget class="QLabel" name="label_6">
-               <property name="text">
-                <string>cnt</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="label_2">
-               <property name="text">
-                <string>Actual Velocity:</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QLineEdit" name="lineEdit_2">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="2">
-              <widget class="QLabel" name="label_7">
-               <property name="text">
-                <string>cnt/sec</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_3">
-               <property name="text">
-                <string>Active Current:</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QLineEdit" name="lineEdit_3">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="2">
-              <widget class="QLabel" name="label_8">
-               <property name="text">
-                <string>amp</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_9">
-               <property name="text">
-                <string>Load Torque:</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QLineEdit" name="lineEdit_4">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="2">
-              <widget class="QLabel" name="label_10">
-               <property name="text">
-                <string>N/m</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="0" column="1">
-            <widget class="Line" name="line_2">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-            </widget>
-           </item>
+          <layout class="QGridLayout" name="gridLayout_11" columnstretch="2,0,2,0,0">
            <item row="0" column="2">
             <layout class="QGridLayout" name="gridLayout_9">
              <item row="0" column="0">
-              <widget class="QLabel" name="label_41">
+              <widget class="QLabel" name="posLimLabel">
                <property name="text">
                 <string>Limits:</string>
                </property>
@@ -176,9 +66,9 @@
              <item row="0" column="1">
               <layout class="QGridLayout" name="gridLayout_5">
                <item row="0" column="0">
-                <widget class="QPushButton" name="pushButton_2">
+                <widget class="QPushButton" name="rlsBtn">
                  <property name="enabled">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                  <property name="layoutDirection">
                   <enum>Qt::LeftToRight</enum>
@@ -199,9 +89,9 @@
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QPushButton" name="pushButton_3">
+                <widget class="QPushButton" name="flsBtn">
                  <property name="enabled">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                  <property name="font">
                   <font>
@@ -234,7 +124,7 @@
               </layout>
              </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="label_42">
+              <widget class="QLabel" name="axisStateLabel">
                <property name="text">
                 <string>Axis Status:</string>
                </property>
@@ -244,7 +134,7 @@
               </widget>
              </item>
              <item row="1" column="1">
-              <widget class="QLabel" name="label_44">
+              <widget class="QLabel" name="axisState">
                <property name="text">
                 <string>unknown</string>
                </property>
@@ -254,7 +144,7 @@
               </widget>
              </item>
              <item row="2" column="0">
-              <widget class="QLabel" name="label_43">
+              <widget class="QLabel" name="motionStateLabel">
                <property name="text">
                 <string>Motion Status:</string>
                </property>
@@ -264,7 +154,7 @@
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QLabel" name="label_45">
+              <widget class="QLabel" name="motionState">
                <property name="text">
                 <string>unknown</string>
                </property>
@@ -275,10 +165,139 @@
              </item>
             </layout>
            </item>
-           <item row="0" column="3">
-            <layout class="QGridLayout" name="gridLayout_8" rowstretch="1,3">
+           <item row="0" column="0">
+            <layout class="QGridLayout" name="gridLayout_10">
              <item row="0" column="0">
-              <widget class="QLabel" name="label_5">
+              <widget class="QLabel" name="actualPosLabel">
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+               <property name="text">
+                <string>Actual Position:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="actualPos">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QLabel" name="actualPosUnit">
+               <property name="text">
+                <string>cnt</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="actualVelLabel">
+               <property name="text">
+                <string>Actual Velocity:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="actualVel">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QLabel" name="actualVelUnit">
+               <property name="text">
+                <string>cnt/sec</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="actualTorLabel">
+               <property name="text">
+                <string>Actual Torque</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="actualTor">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QLabel" name="actualTorUnit">
+               <property name="text">
+                <string>Nm</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="loadLabel">
+               <property name="text">
+                <string>Load Torque:</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="load">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="2">
+              <widget class="QLabel" name="loadUnit">
+               <property name="text">
+                <string>Nm</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="0" column="1">
+            <widget class="Line" name="line_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <layout class="QGridLayout" name="gridLayout_8" rowstretch="1,0,0">
+             <item row="2" column="0">
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="statusLabel">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="text">
                 <string>Status</string>
                </property>
@@ -288,7 +307,7 @@
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QLabel" name="label_4">
+              <widget class="QLabel" name="statusViz">
                <property name="enabled">
                 <bool>true</bool>
                </property>
@@ -311,6 +330,22 @@
              </item>
             </layout>
            </item>
+           <item row="0" column="3">
+            <spacer name="horizontalSpacer_7">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Preferred</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
           </layout>
          </widget>
         </item>
@@ -321,7 +356,7 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_6" columnstretch="3,2,2,2,2,2,2">
            <item row="0" column="5">
-            <widget class="QLabel" name="label_27">
+            <widget class="QLabel" name="digLabel5">
              <property name="text">
               <string>5</string>
              </property>
@@ -331,7 +366,7 @@
             </widget>
            </item>
            <item row="1" column="6">
-            <widget class="QLabel" name="label_34">
+            <widget class="QLabel" name="digFunc6">
              <property name="text">
               <string>?</string>
              </property>
@@ -341,7 +376,7 @@
             </widget>
            </item>
            <item row="1" column="3">
-            <widget class="QLabel" name="label_31">
+            <widget class="QLabel" name="digFunc3">
              <property name="text">
               <string>?</string>
              </property>
@@ -351,7 +386,7 @@
             </widget>
            </item>
            <item row="2" column="5">
-            <widget class="QLabel" name="label_39">
+            <widget class="QLabel" name="digState5">
              <property name="text">
               <string>S</string>
              </property>
@@ -368,7 +403,7 @@
             </widget>
            </item>
            <item row="4" column="3">
-            <widget class="QCheckBox" name="checkBox_3">
+            <widget class="QCheckBox" name="digSet3">
              <property name="styleSheet">
               <string notr="true">QCheckBox::indicator {subcontrol-position:center center;};</string>
              </property>
@@ -378,7 +413,7 @@
             </widget>
            </item>
            <item row="1" column="2">
-            <widget class="QLabel" name="label_30">
+            <widget class="QLabel" name="digFunc2">
              <property name="text">
               <string>?</string>
              </property>
@@ -388,7 +423,7 @@
             </widget>
            </item>
            <item row="4" column="4">
-            <widget class="QCheckBox" name="checkBox_4">
+            <widget class="QCheckBox" name="digSet4">
              <property name="styleSheet">
               <string notr="true">QCheckBox::indicator {subcontrol-position:center center;};</string>
              </property>
@@ -398,7 +433,7 @@
             </widget>
            </item>
            <item row="4" column="6">
-            <widget class="QCheckBox" name="checkBox_6">
+            <widget class="QCheckBox" name="digSet6">
              <property name="styleSheet">
               <string notr="true">QCheckBox::indicator {subcontrol-position:center center;};</string>
              </property>
@@ -408,7 +443,7 @@
             </widget>
            </item>
            <item row="2" column="2">
-            <widget class="QLabel" name="label_36">
+            <widget class="QLabel" name="digState2">
              <property name="text">
               <string>S</string>
              </property>
@@ -418,7 +453,7 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QLabel" name="label_23">
+            <widget class="QLabel" name="digLabel1">
              <property name="text">
               <string>1</string>
              </property>
@@ -428,7 +463,7 @@
             </widget>
            </item>
            <item row="2" column="3">
-            <widget class="QLabel" name="label_37">
+            <widget class="QLabel" name="digState3">
              <property name="text">
               <string>S</string>
              </property>
@@ -438,7 +473,7 @@
             </widget>
            </item>
            <item row="0" column="2">
-            <widget class="QLabel" name="label_24">
+            <widget class="QLabel" name="digLabel2">
              <property name="text">
               <string>2</string>
              </property>
@@ -448,14 +483,14 @@
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QLabel" name="label_21">
+            <widget class="QLabel" name="digInStatLabel">
              <property name="text">
               <string>Digital In Stat</string>
              </property>
             </widget>
            </item>
            <item row="1" column="4">
-            <widget class="QLabel" name="label_32">
+            <widget class="QLabel" name="digFunc4">
              <property name="text">
               <string>?</string>
              </property>
@@ -465,14 +500,14 @@
             </widget>
            </item>
            <item row="0" column="0">
-            <widget class="QLabel" name="label_14">
+            <widget class="QLabel" name="digitalInBitLabel">
              <property name="text">
               <string>Digital In Bit</string>
              </property>
             </widget>
            </item>
            <item row="0" column="6">
-            <widget class="QLabel" name="label_28">
+            <widget class="QLabel" name="digLabel6">
              <property name="text">
               <string>6</string>
              </property>
@@ -482,7 +517,7 @@
             </widget>
            </item>
            <item row="0" column="4">
-            <widget class="QLabel" name="label_26">
+            <widget class="QLabel" name="digLabel4">
              <property name="text">
               <string>4</string>
              </property>
@@ -492,7 +527,7 @@
             </widget>
            </item>
            <item row="1" column="5">
-            <widget class="QLabel" name="label_33">
+            <widget class="QLabel" name="digFunc5">
              <property name="text">
               <string>?</string>
              </property>
@@ -502,7 +537,7 @@
             </widget>
            </item>
            <item row="2" column="4">
-            <widget class="QLabel" name="label_38">
+            <widget class="QLabel" name="digState4">
              <property name="text">
               <string>S</string>
              </property>
@@ -512,7 +547,7 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QLabel" name="label_29">
+            <widget class="QLabel" name="digFunc1">
              <property name="text">
               <string>?</string>
              </property>
@@ -522,7 +557,7 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QLabel" name="label_35">
+            <widget class="QLabel" name="digState1">
              <property name="text">
               <string>S</string>
              </property>
@@ -532,7 +567,7 @@
             </widget>
            </item>
            <item row="2" column="6">
-            <widget class="QLabel" name="label_40">
+            <widget class="QLabel" name="digState6">
              <property name="text">
               <string>S</string>
              </property>
@@ -542,7 +577,7 @@
             </widget>
            </item>
            <item row="4" column="5">
-            <widget class="QCheckBox" name="checkBox_5">
+            <widget class="QCheckBox" name="digSet5">
              <property name="styleSheet">
               <string notr="true">QCheckBox::indicator {subcontrol-position:center center;};</string>
              </property>
@@ -552,14 +587,14 @@
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_15">
+            <widget class="QLabel" name="digInFuncLabel">
              <property name="text">
               <string>Digital In Func</string>
              </property>
             </widget>
            </item>
            <item row="0" column="3">
-            <widget class="QLabel" name="label_25">
+            <widget class="QLabel" name="digLabel3">
              <property name="text">
               <string>3</string>
              </property>
@@ -576,7 +611,7 @@
             </widget>
            </item>
            <item row="4" column="1">
-            <widget class="QCheckBox" name="checkBox_7">
+            <widget class="QCheckBox" name="digSet1">
              <property name="styleSheet">
               <string notr="true">QCheckBox::indicator {subcontrol-position:center center;};</string>
              </property>
@@ -586,7 +621,7 @@
             </widget>
            </item>
            <item row="4" column="2">
-            <widget class="QCheckBox" name="checkBox_8">
+            <widget class="QCheckBox" name="digSet2">
              <property name="styleSheet">
               <string notr="true">QCheckBox::indicator {subcontrol-position:center center;};</string>
              </property>
@@ -603,149 +638,18 @@
           <property name="title">
            <string>Motion</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_13" rowstretch="1,3,1" columnstretch="4,4,0,1,2">
-           <item row="2" column="4">
-            <widget class="QPushButton" name="pushButton_5">
-             <property name="styleSheet">
-              <string notr="true">
-/**********按钮**********/
-QPushButton {
-  border-radius: 4px;
-  border: none;
-  width: 75px;
-  height: 25px;
-  
-  font: 9pt &quot;Microsoft YaHei UI&quot;;
-  font-weight: bold;
-
-}
-
-QPushButton:enabled {
-  background: rgb(255, 0, 0);
-  color: white;
-}
-
-QPushButton:!enabled {
-  background: rgb(255, 180, 180);
-  color: white;
-}
-
-QPushButton:enabled:hover {
-  background: rgb(255, 0, 0);
-}
-
-QPushButton:enabled:pressed {
-  background: rgb(255, 0, 0);
-}</string>
-             </property>
-             <property name="text">
-              <string>Stop</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <spacer name="horizontalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="1" column="0" rowspan="2">
-            <widget class="QGroupBox" name="groupBox_4">
-             <property name="title">
-              <string>Motion Parameters</string>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_12">
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_13">
-                <property name="text">
-                 <string>max vel:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QLineEdit" name="lineEdit_5">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QLabel" name="label_16">
-                <property name="text">
-                 <string>cnt/sec</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_12">
-                <property name="text">
-                 <string>max acc:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QLineEdit" name="lineEdit_9">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2">
-               <widget class="QLabel" name="label_17">
-                <property name="text">
-                 <string>cnt/sec^2</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_46">
-                <property name="text">
-                 <string>max jerk:</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QLineEdit" name="lineEdit_10">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <widget class="QLabel" name="label_47">
-                <property name="text">
-                 <string>cnt/sec^3</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item row="1" column="1" rowspan="2">
-            <widget class="QGroupBox" name="groupBox_5">
-             <property name="title">
-              <string>PTP Move Absolute</string>
-             </property>
-            </widget>
-           </item>
+          <layout class="QGridLayout" name="gridLayout_14">
            <item row="0" column="0" colspan="5">
             <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,4,0,0,3">
              <item>
-              <widget class="QLabel" name="label_11">
+              <widget class="QLabel" name="driveModeLabel">
                <property name="text">
                 <string>Drive Mode</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QComboBox" name="comboBox">
+              <widget class="QComboBox" name="driveModeCombo">
                <item>
                 <property name="text">
                  <string>Cyclic Position</string>
@@ -777,14 +681,14 @@ QPushButton:enabled:pressed {
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_4">
+              <widget class="QPushButton" name="setZeroBtn">
                <property name="text">
                 <string>0</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton">
+              <widget class="QPushButton" name="enableBtn">
                <property name="text">
                 <string>    Enable</string>
                </property>
@@ -796,15 +700,314 @@ QPushButton:enabled:pressed {
              </item>
             </layout>
            </item>
-           <item row="1" column="2" colspan="3">
+           <item row="1" column="0" rowspan="3">
+            <widget class="QGroupBox" name="groupBox_4">
+             <property name="title">
+              <string>Motion Parameters</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_12" columnstretch="1,2,1">
+              <item row="0" column="0">
+               <widget class="QLabel" name="maxVelLabel">
+                <property name="text">
+                 <string>max vel:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="maxVel">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLabel" name="maxVelUnit">
+                <property name="text">
+                 <string>cnt/sec</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="maxAccLabel">
+                <property name="text">
+                 <string>max acc:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="maxAcc">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QLabel" name="maxAccUnit">
+                <property name="text">
+                 <string>cnt/sec^2</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="maxJerkLabel">
+                <property name="text">
+                 <string>max jerk:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLineEdit" name="maxJerk">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QLabel" name="maxJerkUnit">
+                <property name="text">
+                 <string>cnt/sec^3</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="1" column="1">
             <widget class="QGroupBox" name="groupBox_6">
+             <property name="title">
+              <string>PTP Move Relative</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_13">
+              <item row="0" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_4">
+                <item>
+                 <widget class="QPushButton" name="ptpRelMinus">
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../res.qrc">
+                    <normaloff>:/res/leftarrow.png</normaloff>:/res/leftarrow.png</iconset>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="ptpRel">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="ptpRelPlus">
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../res.qrc">
+                    <normaloff>:/res/rightarrow.png</normaloff>:/res/rightarrow.png</iconset>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <item>
+                 <widget class="QCheckBox" name="ptpRelRepeat">
+                  <property name="text">
+                   <string>Repetitive</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_3">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>37</width>
+                    <height>17</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QLabel" name="ptpRelUnit">
+                  <property name="text">
+                   <string>[cnt/sec]</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="1" column="2" rowspan="2" colspan="3">
+            <widget class="QGroupBox" name="groupBox_5">
              <property name="title">
               <string>PTP Move Absolute</string>
              </property>
+             <layout class="QGridLayout" name="gridLayout_15">
+              <item row="0" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_6">
+                <item>
+                 <widget class="QLineEdit" name="ptpAbs1">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="ptpAbs1Move">
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../res.qrc">
+                    <normaloff>:/res/rightarrow.png</normaloff>:/res/rightarrow.png</iconset>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <item>
+                 <widget class="QLineEdit" name="ptpAbs2">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="ptpAbs2Move">
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../res.qrc">
+                    <normaloff>:/res/rightarrow.png</normaloff>:/res/rightarrow.png</iconset>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="2" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_5">
+                <item>
+                 <widget class="QCheckBox" name="ptpAbsRepeat">
+                  <property name="text">
+                   <string>Repetitive</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_4">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>37</width>
+                    <height>17</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QLabel" name="ptpAbsUnit">
+                  <property name="text">
+                   <string>[cnt/sec]</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
             </widget>
            </item>
-           <item row="2" column="3">
-            <widget class="QPushButton" name="pushButton_6">
+           <item row="2" column="1" rowspan="2">
+            <widget class="QGroupBox" name="groupBox_7">
+             <property name="title">
+              <string>Jogging</string>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_7">
+              <item>
+               <widget class="QPushButton" name="jogMinus">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res.qrc">
+                  <normaloff>:/res/leftarrow.png</normaloff>:/res/leftarrow.png</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>18</width>
+                  <height>14</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="jogHeldBtn">
+                <property name="text">
+                 <string>Run Held</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_6">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>18</width>
+                  <height>17</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="jogPlus">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="../res.qrc">
+                  <normaloff>:/res/rightarrow.png</normaloff>:/res/rightarrow.png</iconset>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="3" column="3">
+            <widget class="QPushButton" name="cancelBtn">
              <property name="styleSheet">
               <string notr="true">
 /**********按钮**********/
@@ -842,6 +1045,45 @@ QPushButton:enabled:pressed {
              </property>
             </widget>
            </item>
+           <item row="3" column="4">
+            <widget class="QPushButton" name="stopBtn">
+             <property name="styleSheet">
+              <string notr="true">
+/**********按钮**********/
+QPushButton {
+  border-radius: 4px;
+  border: none;
+  width: 75px;
+  height: 25px;
+  
+  font: 9pt &quot;Microsoft YaHei UI&quot;;
+  font-weight: bold;
+
+}
+
+QPushButton:enabled {
+  background: rgb(255, 0, 0);
+  color: white;
+}
+
+QPushButton:!enabled {
+  background: rgb(255, 180, 180);
+  color: white;
+}
+
+QPushButton:enabled:hover {
+  background: rgb(255, 0, 0);
+}
+
+QPushButton:enabled:pressed {
+  background: rgb(255, 0, 0);
+}</string>
+             </property>
+             <property name="text">
+              <string>Stop</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </item>
@@ -862,7 +1104,7 @@ QPushButton:enabled:pressed {
      <x>0</x>
      <y>0</y>
      <width>1272</width>
-     <height>23</height>
+     <height>25</height>
     </rect>
    </property>
    <property name="font">
@@ -900,7 +1142,7 @@ QPushButton:enabled:pressed {
    <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <widget class="QDockWidget" name="dockWidget">
+  <widget class="QDockWidget" name="hwWidget">
    <property name="windowTitle">
     <string>Hardware State</string>
    </property>
@@ -910,7 +1152,7 @@ QPushButton:enabled:pressed {
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QGridLayout" name="gridLayout_4">
      <item row="0" column="0">
-      <widget class="QTableWidget" name="tableWidget_2">
+      <widget class="QTableWidget" name="hwTable">
        <property name="font">
         <font>
          <family>Microsoft YaHei UI</family>
@@ -996,7 +1238,7 @@ QPushButton:enabled:pressed {
    <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
-      <widget class="QListWidget" name="listWidget">
+      <widget class="QListWidget" name="driveList">
        <property name="font">
         <font>
          <family>腾讯体</family>
@@ -1020,7 +1262,7 @@ QPushButton:enabled:pressed {
    <widget class="QWidget" name="dockWidgetContents_3">
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="0" column="0">
-      <widget class="QTableWidget" name="tableWidget">
+      <widget class="QTableWidget" name="driveProp">
        <property name="font">
         <font>
          <family>Microsoft YaHei UI</family>

@@ -55,6 +55,8 @@ QRibbon::QRibbon()
 
     connect(ui->pushButtonFullScreen, &QPushButton::clicked, this, &QRibbon::toggleMaximized);
     connect(ui->pushButtonMinimizeTab, &QPushButton::clicked, this, &QRibbon::hideTab);
+    connect(ui->pushButtonMaxTab, &QPushButton::clicked, this, &QRibbon::expandTab);
+
 
     // 隐藏下边线
     connect(&(_->animationHideBar), &QPropertyAnimation::finished, this, &QRibbon::onHideTabFinished);

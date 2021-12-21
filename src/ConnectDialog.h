@@ -5,6 +5,19 @@
 #include <QTcpSocket>
 #include <QTimer>
 
+#include <memory>
+
+#include <grpcpp/grpcpp.h>
+#include "robot_service.grpc.pb.h"
+
+using grpc::Channel;
+using grpc::ClientContext;
+using grpc::Status;
+
+using rocos::RobotService;
+using rocos::RobotStateRequest;
+using rocos::RobotStateResponse;
+
 namespace Ui {
 class ConnectDialog;
 }
@@ -18,61 +31,42 @@ public:
     ~ConnectDialog();
 
 public slots:
-    void on_connectButton_clicked();
 
-    void on_ipAddressEdit_textChanged(const QString &ip);
-
-    void on_portEdit_textChanged(const QString &p);
-
-    void connectedToRobot(bool con);  //连接到机器人
-
-    void setRobotEnabled(bool enabled); //操作：机器人是否上电
-
-    void getRobotState(); // 操作：发送GET_INFO
-
-    void parseRobotMsg(); // 解析返回的机器人信息
-
-    void setJointSpeedScaling(double factor); //关节速度
-    void getJointSpeedScaling(); //获取关节速度
-
-    void setCartesianSpeedScaling(double factor); //笛卡尔速度
-    void getCartesianSpeedScaling(); //获取 笛卡尔速度
-
-    void setToolSpeedScaling(double factor); // 工具速度
-    void getToolSpeedScaling(); //获取工具速度
-
-    void startScript(QString script);
-    void stopScript();
-    void pauseScript();
-    void continueScript();
-
-    void setZeroCalibration();
+    void getRobotState();
 
 private:
     Ui::ConnectDialog *ui;
-
-    QTcpSocket* tcpSocket = Q_NULLPTR; //连接机器人控制器
-
-
-    bool isRobotEnabled = false; //机器人默认不上电
 
     QTimer* timerState;
 
     bool event(QEvent *event) override;
 
-//    Eigen::Matrix<int, 7, 3> matrixDof;
-//    Eigen::Matrix<int, 3, 3> matrixFrame;
+    std::unique_ptr<RobotService::Stub> _stub; //grpc存根
+    std::shared_ptr<Channel> _channel;
+
+    RobotStateResponse response;
+
+private:
+    QString ipAddress = "0.0.0.0";
+    int     port = 30001;
 
 public:
-    QString ipAddress = "192.168.0.99";
-    int     port = 6666;
+    const QString getHardwareType();
+    inline const double  getMinCyclicTime() { return response.robot_state().hw_state().min_cycle_time(); }
+    inline const double  getMaxCyclicTime() { return response.robot_state().hw_state().max_cycle_time(); }
+    inline const double  getCurrCylicTime() { return response.robot_state().hw_state().current_cycle_time(); }
 
-    inline bool isConnected() { return (tcpSocket != Q_NULLPTR) && (tcpSocket->isValid());}  //是否已经连接
-    inline bool getRobotEnabled() {return isRobotEnabled;} //获取Enable状态
+    inline const int getJointNum() { return response.robot_state().joint_states_size(); }
 
-    void jointJogging(int id, int dir); //关节点动
-    void cartesianJogging(int frame, int freedom, int dir); //笛卡尔点动
-    void jogging(int frame, int freedom, int dir); //两种点动可以合在一起
+    const QString getJointStatus(int id);
+    inline const QString getJointName(int id) { return QString(response.robot_state().joint_states(id).name().c_str()); }
+    inline const double  getJointPosition(int id) { return response.robot_state().joint_states(id).position(); }
+    inline const double  getJointVelocity(int id) { return response.robot_state().joint_states(id).velocity(); }
+    inline const double  getJointTorque(int id) { return response.robot_state().joint_states(id).acceleration(); }
+    inline const double  getJointLoad(int id) { return response.robot_state().joint_states(id).load(); }
+
+
+    inline void shutdown() { timerState->stop(); _channel.reset(); _stub.release(); emit connectState(false); }
 
 signals:
     void jointPositions(QVector<double>& jntPos); //解析到关节位置，发送 信号
@@ -80,6 +74,13 @@ signals:
     void speedScaling(double f100); // 速度缩放因数 25.0
     void logging(QByteArray& ba); //返回的日志信息
 
+    void newStateComming(void);
+    void connectState(bool isConnected);
+
+private slots:
+    void on_connectButton_clicked();
+    void on_ipAddressEdit_textChanged(const QString &ip);
+    void on_portEdit_textChanged(const QString &p);
 };
 
 #endif // CONNECTDIALOG_H
