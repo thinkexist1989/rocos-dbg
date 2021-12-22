@@ -51,8 +51,10 @@ private:
     RobotStateResponse response;
 
 private:
-    QString ipAddress = "0.0.0.0";
+    QString ipAddress = "172.31.1.37";
     int     port = 30001;
+
+    bool _isConnected = false;
 
 public:
     const QString getHardwareType();
@@ -73,8 +75,11 @@ public:
     void powerOn();
     void powerOff();
 
+    void powerOn(int id);
+    void powerOff(int id);
 
-    inline void shutdown() { timerState->stop(); _channel.reset(); _stub.release(); emit connectState(false); }
+
+    void shutdown();
 
 signals:
     void jointPositions(QVector<double>& jntPos); //解析到关节位置，发送 信号

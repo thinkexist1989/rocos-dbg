@@ -13,6 +13,9 @@ ConnectDialog::ConnectDialog(QWidget *parent) :
 
     this->setWindowFlag(Qt::FramelessWindowHint);
 
+    ipAddress = ui->ipAddressEdit->text();
+    port = ui->portEdit->text().toInt();
+
 
     timerState = new QTimer(this);
     connect(timerState, &QTimer::timeout, this, &ConnectDialog::getRobotState); //获取机器人状态
@@ -21,6 +24,8 @@ ConnectDialog::ConnectDialog(QWidget *parent) :
 
 ConnectDialog::~ConnectDialog()
 {
+    shutdown();
+//    usleep(100000);
     delete ui;
 }
 
@@ -75,7 +80,10 @@ void ConnectDialog::powerOn()
     Status status = _stub->WriteRobotCommmand(&context, request, &response);
 
     if(status.ok()) {
-        std::cout << "Send command Ok" << std::endl;
+//        std::cout << "Send command Ok" << std::endl;
+    }
+    else {
+        std::cerr << "Send command Error" << std::endl;
     }
 }
 
@@ -90,32 +98,97 @@ void ConnectDialog::powerOff()
     Status status = _stub->WriteRobotCommmand(&context, request, &response);
 
     if(status.ok()) {
-        std::cout << "Send command Ok" << std::endl;
+//        std::cout << "Send command Ok" << std::endl;
     }
+    else {
+        std::cout << "Send command Error" << std::endl;
+    }
+}
+
+void ConnectDialog::powerOn(int id)
+{
+    RobotCommandRequest request;
+    RobotCommandResponse response;
+
+    request.mutable_command()->mutable_single_axis_command()->mutable_enabled()->set_id(id);
+
+    ClientContext context; //这个只能使用一次，每次请求都需要重新创建
+    Status status = _stub->WriteRobotCommmand(&context, request, &response);
+
+    if(status.ok()) {
+//        std::cout << "Send command Ok" << std::endl;
+    }
+    else {
+        std::cout << "Send command Error" << std::endl;
+    }
+}
+
+void ConnectDialog::powerOff(int id)
+{
+    RobotCommandRequest request;
+    RobotCommandResponse response;
+
+    request.mutable_command()->mutable_single_axis_command()->mutable_disabled()->set_id(id);
+
+    ClientContext context; //这个只能使用一次，每次请求都需要重新创建
+    Status status = _stub->WriteRobotCommmand(&context, request, &response);
+
+    if(status.ok()) {
+//        std::cout << "Send command Ok" << std::endl;
+    }
+    else {
+        std::cerr << "Send command Error" << std::endl;
+    }
+}
+
+void ConnectDialog::shutdown()
+{
+    timerState->stop();
+    while(_channel.use_count())
+        _channel.reset();
+//    _stub.reset();
+//    delete _stub.release();
+    _isConnected = false;
+    emit connectState(false);
 }
 
 void ConnectDialog::on_connectButton_clicked()
 {
-    _channel.reset();
-    _channel = grpc::CreateChannel(QString("%1:%2").arg(ipAddress).arg(port).toStdString(), grpc::InsecureChannelCredentials());
+    if(_isConnected)
+        return;
 
-    _stub.release();
+//    if(_channel)
+//        _channel.reset();
+    _channel = grpc::CreateChannel(QString("%1:%2").arg(ipAddress).arg(port).toStdString(), grpc::InsecureChannelCredentials());
+    std::cout << _channel->GetState(true) <<std::endl;
+
+//    if(_stub) {
+////       delete _stub.release();
+//        _stub.reset();
+//    }
+
     _stub = RobotService::NewStub(_channel);
 
 
     //测试一下连接否成功
     RobotStateRequest request;
     RobotStateResponse response;
+    Status status;
 
-    ClientContext context; //这个只能使用一次，每次请求都需要重新创建
-    Status status = _stub->ReadRobotState(&context, request, &response);
+    for(int i = 0; i < 1; i++) { //TODO:之前发现如果退出程序，重启只发送一次会卡住，所以多发几次，但这个问题需要仔细研究一下
+        ClientContext context; //这个只能使用一次，每次请求都需要重新创建
+        status = _stub->ReadRobotState(&context, request, &response);
+    }
 
     if(status.ok()) {
         emit connectState(true);
         timerState->start(100);
+        this->close();
+        _isConnected = true;
     }
     else {
         emit connectState(false);
+        _isConnected = false;
     }
 
 }
@@ -138,6 +211,7 @@ void ConnectDialog::getRobotState()
     RobotStateRequest request;
 
 //    RobotStateResponse response;
+    response.Clear();
 
     ClientContext context; //这个只能使用一次，每次请求都需要重新创建
     Status status = _stub->ReadRobotState(&context, request, &response);
@@ -148,5 +222,8 @@ void ConnectDialog::getRobotState()
 //        std::cout << "slave num: " << response.robot_state().hw_state().slave_num() << std::endl;
 //        std::cout << "hw type: " << response.robot_state().hw_state().hw_type() << std::endl;
 //        std::cout << "curr cycle time: " << response.robot_state().hw_state().current_cycle_time() << std::endl;
+    }
+    else {
+        std::cout << status.error_code() << ": " << status.error_message() << std::endl;
     }
 }

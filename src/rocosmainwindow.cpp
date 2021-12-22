@@ -145,15 +145,15 @@ void RocosMainWindow::on_driveList_currentRowChanged(int currentRow)
 
 void RocosMainWindow::on_enableBtn_clicked()
 {
-    if(drivePropId == -1) {
+    if(drivePropId == -1 || _isConnected == false) {
         return;
     }
 
     if(connectDlg->getJointStatus(drivePropId).contains("Enabled")) {
-        connectDlg->powerOff();
+        connectDlg->powerOff(drivePropId);
 
     }
     else {
-        connectDlg->powerOn();
+        connectDlg->powerOn(drivePropId);
     }
 }
