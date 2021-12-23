@@ -26,6 +26,19 @@ namespace Ui {
 class ConnectDialog;
 }
 
+enum Synchronization {
+    SYNC_NONE = 0,
+    SYNC_TIME = 1,
+    SYNC_PHASE = 2
+};
+
+enum Mode {
+    MODE_CSP = 0,
+    MODE_CSV = 1,
+    MODE_CST = 2,
+};
+
+
 class ConnectDialog : public QDialog
 {
     Q_OBJECT
@@ -78,8 +91,19 @@ public:
     void powerOn(int id);
     void powerOff(int id);
 
+    void setJointMode(int id, int mode);
 
     void shutdown();
+
+    void setSync(int sync);
+
+
+
+    //////////Single Axis Move/////////////////
+    void moveSingleAxis(int id, double pos, double max_vel = -1, double max_acc = -1, double max_jerk = -1, double least_time = -1);
+
+    //////////Multi Axis Move/////////////////
+    void moveMultiAxis(const QVector<double>& pos, const QVector<double>& max_vel, const QVector<double>& max_acc, const QVector<double>& max_jerk, double least_time = -1);
 
 signals:
     void jointPositions(QVector<double>& jntPos); //解析到关节位置，发送 信号

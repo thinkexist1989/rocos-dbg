@@ -38,6 +38,18 @@ RocosMainWindow::RocosMainWindow(QWidget *parent)
     ui->digState5->setPixmap(pixmap.scaled(20, 20, Qt::KeepAspectRatio));
     ui->digState6->setPixmap(pixmap.scaled(20, 20, Qt::KeepAspectRatio));
 
+
+    // 多轴控制显示
+    gridLayout = new QGridLayout(ui->AxesGrpBox);
+//    gridLayout->addLayout(ui->AxesGrpBox, 1,0,1,4);
+//    for(int i = 0; i < 8 ; i++) {
+//        DriveForm* driveForm = new DriveForm(this);
+//        gridLayout->addWidget(driveForm, i / 4, i % 4);
+//    }
+
+//    ui->multiAxis->setLayout(gridLayout);
+
+//    gridLayout->add
 }
 
 RocosMainWindow::~RocosMainWindow()
@@ -96,6 +108,26 @@ void RocosMainWindow::updateRobotState()
     }
 
 
+    ////////// MultiAxis ////////////////
+    if(multiAxes.size() != connectDlg->getJointNum()) { //驱动器数量有变化
+        multiAxes.clear();
+        for(int i = 0; i < connectDlg->getJointNum(); i++) {
+            multiAxes.push_back(new DriveForm(this));
+            gridLayout->addWidget(multiAxes[i], i/4, i%4);
+        }
+    }
+    else {
+        for(int i =0; i < multiAxes.size(); i++) {
+            multiAxes[i]->setName(connectDlg->getJointName(i));
+            multiAxes[i]->setActualPosition(connectDlg->getJointPosition(i));
+            multiAxes[i]->setActualVelocity(connectDlg->getJointVelocity(i));
+            multiAxes[i]->setActualTorque(connectDlg->getJointTorque(i));
+            multiAxes[i]->setLoadTorque(connectDlg->getJointLoad(i));
+            multiAxes[i]->setAxisStatus(connectDlg->getJointStatus(i));
+        }
+    }
+
+
 }
 
 void RocosMainWindow::resizeEvent(QResizeEvent *event)
@@ -112,10 +144,12 @@ void RocosMainWindow::setDriveStatusViz(bool isEnabled)
     if(isEnabled) {
         //Status指示灯
         ui->statusViz->setPixmap(QPixmap(":/res/light_green.png").scaled(100, 100, Qt::KeepAspectRatio));
+        _enableState = true;
     }
     else {
         //Status指示灯
         ui->statusViz->setPixmap(QPixmap(":/res/light_red.png").scaled(100, 100, Qt::KeepAspectRatio));
+        _enableState =false;
     }
 }
 
@@ -156,4 +190,149 @@ void RocosMainWindow::on_enableBtn_clicked()
     else {
         connectDlg->powerOn(drivePropId);
     }
+}
+
+void RocosMainWindow::on_stopBtn_clicked()
+{
+    if(!_enableState) {
+        return;
+    }
+
+    // TODO:
+    double sign = ui->actualVel->text().toDouble() > 0 ? 1 : -1;
+//    connectDlg->moveSingleAxis(drivePropId, ui->actualPos->text().toDouble() + sign* pow(_max_vel, 2)/(2*_max_acc), _max_vel, _max_acc, _max_jerk, -1);
+    connectDlg->moveSingleAxis(drivePropId, ui->actualPos->text().toDouble(), _max_vel, _max_acc, _max_jerk, -1);
+}
+
+void RocosMainWindow::on_ptpRelPlus_clicked()
+{
+    if(!_enableState) {
+        return;
+    }
+
+    double target_pos = ui->actualPos->text().toDouble() + ui->ptpRel->text().toDouble();
+
+    connectDlg->moveSingleAxis(drivePropId, target_pos, _max_vel, _max_acc, _max_jerk, -1);
+
+}
+
+void RocosMainWindow::on_ptpRelMinus_clicked()
+{
+    if(!_enableState) {
+        return;
+    }
+
+    double target_pos = ui->actualPos->text().toDouble() - ui->ptpRel->text().toDouble();
+
+    connectDlg->moveSingleAxis(drivePropId, target_pos, _max_vel, _max_acc, _max_jerk, -1);
+}
+
+
+void RocosMainWindow::on_maxVel_textChanged(const QString &arg1)
+{
+    _max_vel = arg1.toDouble();
+    std::cout << "Max vel: " << _max_vel << std::endl;
+
+}
+
+void RocosMainWindow::on_maxAcc_textChanged(const QString &arg1)
+{
+    _max_acc = arg1.toDouble();
+    std::cout << "Max acc: " << _max_acc << std::endl;
+
+}
+
+void RocosMainWindow::on_maxJerk_textChanged(const QString &arg1)
+{
+    _max_jerk = arg1.toDouble();
+    std::cout << "Max jerk: " << _max_jerk << std::endl;
+}
+
+
+void RocosMainWindow::on_ptpAbs1Move_clicked()
+{
+    if(!_enableState) {
+        return;
+    }
+
+    double _ptpAbs1 = ui->ptpAbs1->text().toDouble();
+    connectDlg->moveSingleAxis(drivePropId, _ptpAbs1, _max_vel, _max_acc, _max_jerk, -1);
+}
+
+void RocosMainWindow::on_ptpAbs2Move_clicked()
+{
+    if(!_enableState) {
+        return;
+    }
+
+    double _ptpAbs2 = ui->ptpAbs2->text().toDouble();
+    connectDlg->moveSingleAxis(drivePropId, _ptpAbs2, _max_vel, _max_acc, _max_jerk, -1);
+}
+
+void RocosMainWindow::on_enabledAll_clicked()
+{
+    connectDlg->powerOn();
+}
+
+void RocosMainWindow::on_disabledAll_clicked()
+{
+    connectDlg->powerOff();
+}
+
+void RocosMainWindow::on_ptpRelPlusAll_clicked()
+{
+    QVector<double> pos, max_vel, max_acc, max_jerk;
+
+    for(int i = 0; i < multiAxes.size(); i++) {
+        pos.push_back(connectDlg->getJointPosition(i) + multiAxes[i]->getPtpRelative());
+        max_vel.push_back(multiAxes[i]->getMaxVel());
+        max_acc.push_back(multiAxes[i]->getMaxAcc());
+        max_jerk.push_back(multiAxes[i]->getMaxJerk());
+    }
+
+    connectDlg->moveMultiAxis(pos, max_vel, max_acc, max_jerk);
+
+}
+
+void RocosMainWindow::on_ptpRelMinusAll_clicked()
+{
+    QVector<double> pos, max_vel, max_acc, max_jerk;
+
+    for(int i = 0; i < multiAxes.size(); i++) {
+        pos.push_back(connectDlg->getJointPosition(i) - multiAxes[i]->getPtpRelative());
+        max_vel.push_back(multiAxes[i]->getMaxVel());
+        max_acc.push_back(multiAxes[i]->getMaxAcc());
+        max_jerk.push_back(multiAxes[i]->getMaxJerk());
+    }
+
+    connectDlg->moveMultiAxis(pos, max_vel, max_acc, max_jerk);
+}
+
+void RocosMainWindow::on_ptpAbs1MoveAll_clicked()
+{
+    QVector<double> pos, max_vel, max_acc, max_jerk;
+
+    for(int i = 0; i < multiAxes.size(); i++) {
+        pos.push_back(multiAxes[i]->getPtpAbsolute());
+        max_vel.push_back(multiAxes[i]->getMaxVel());
+        max_acc.push_back(multiAxes[i]->getMaxAcc());
+        max_jerk.push_back(multiAxes[i]->getMaxJerk());
+    }
+
+    connectDlg->moveMultiAxis(pos, max_vel, max_acc, max_jerk);
+}
+
+void RocosMainWindow::on_syncNone_clicked()
+{
+    connectDlg->setSync(0);
+}
+
+void RocosMainWindow::on_syncTime_clicked()
+{
+    connectDlg->setSync(1);
+}
+
+void RocosMainWindow::on_syncPhase_clicked()
+{
+    connectDlg->setSync(2);
 }

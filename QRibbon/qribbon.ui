@@ -535,6 +535,8 @@ QCheckBox::indicator:indeterminate {
 }*/
 
 /**********单选框**********/
+
+/*
 QRadioButton {
   spacing: 5px;
 }
@@ -583,6 +585,7 @@ QRadioButton::indicator:checked:hover {
 QRadioButton::indicator:checked:pressed {
   image: url(:/White/radioButtonChecked);
 }
+*/
 
 /**********输入框**********/
 QLineEdit {

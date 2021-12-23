@@ -141,6 +141,25 @@ void ConnectDialog::powerOff(int id)
     }
 }
 
+void ConnectDialog::setJointMode(int id, int mode)
+{
+    RobotCommandRequest request;
+    RobotCommandResponse response;
+
+    request.mutable_command()->mutable_single_axis_command()->mutable_mode()->set_id(id);
+    request.mutable_command()->mutable_single_axis_command()->mutable_mode()->set_value(static_cast<rocos::Mode>(mode));
+
+    ClientContext context; //这个只能使用一次，每次请求都需要重新创建
+    Status status = _stub->WriteRobotCommmand(&context, request, &response);
+
+    if(status.ok()) {
+//        std::cout << "Send command Ok" << std::endl;
+    }
+    else {
+        std::cerr << "Send command Error" << std::endl;
+    }
+}
+
 void ConnectDialog::shutdown()
 {
     timerState->stop();
@@ -152,6 +171,75 @@ void ConnectDialog::shutdown()
     emit connectState(false);
 }
 
+void ConnectDialog::setSync(int sync)
+{
+    RobotCommandRequest request;
+    RobotCommandResponse response;
+
+    request.mutable_command()->mutable_multi_axis_command()->mutable_sync()->set_value(static_cast<rocos::Synchronization>(sync));
+
+    ClientContext context; //这个只能使用一次，每次请求都需要重新创建
+    Status status = _stub->WriteRobotCommmand(&context, request, &response);
+
+    if(status.ok()) {
+//        std::cout << "Send command Ok" << std::endl;
+    }
+    else {
+        std::cerr << "Send command Error" << std::endl;
+    }
+}
+
+void ConnectDialog::moveSingleAxis(int id, double pos, double max_vel, double max_acc, double max_jerk, double least_time)
+{
+    RobotCommandRequest request;
+    RobotCommandResponse response;
+
+    auto move = request.mutable_command()->mutable_single_axis_command()->mutable_move();
+    move->set_id(id);
+    move->set_pos(pos);
+    move->set_max_vel(max_vel);
+    move->set_max_acc(max_acc);
+    move->set_max_jerk(max_jerk);
+    move->set_least_time(least_time);
+
+    ClientContext context; //这个只能使用一次，每次请求都需要重新创建
+    Status status = _stub->WriteRobotCommmand(&context, request, &response);
+
+    if(status.ok()) {
+//        std::cout << "Send command Ok" << std::endl;
+    }
+    else {
+        std::cerr << "Send command Error" << std::endl;
+    }
+}
+
+void ConnectDialog::moveMultiAxis(const QVector<double> &pos, const QVector<double> &max_vel, const QVector<double> &max_acc, const QVector<double> &max_jerk, double least_time)
+{
+    RobotCommandRequest request;
+    RobotCommandResponse response;
+
+    auto move = request.mutable_command()->mutable_multi_axis_command()->mutable_move();
+
+    for(int i = 0; i < pos.size(); i++) {
+        move->add_target_pos(pos[i]);
+        move->add_max_vel(max_vel[i]);
+        move->add_max_acc(max_acc[i]);
+        move->add_max_jerk(max_jerk[i]);
+    }
+
+    move->set_least_time(least_time);
+
+    ClientContext context; //这个只能使用一次，每次请求都需要重新创建
+    Status status = _stub->WriteRobotCommmand(&context, request, &response);
+
+    if(status.ok()) {
+//        std::cout << "Send command Ok" << std::endl;
+    }
+    else {
+        std::cerr << "Send command Error" << std::endl;
+    }
+}
+
 void ConnectDialog::on_connectButton_clicked()
 {
     if(_isConnected)
@@ -160,7 +248,7 @@ void ConnectDialog::on_connectButton_clicked()
 //    if(_channel)
 //        _channel.reset();
     _channel = grpc::CreateChannel(QString("%1:%2").arg(ipAddress).arg(port).toStdString(), grpc::InsecureChannelCredentials());
-    std::cout << _channel->GetState(true) <<std::endl;
+//    std::cout << _channel->GetState(true) <<std::endl;
 
 //    if(_stub) {
 ////       delete _stub.release();
