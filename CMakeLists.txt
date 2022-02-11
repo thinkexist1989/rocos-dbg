@@ -91,7 +91,7 @@ endforeach ()
 include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 
 add_library(protocol
-        SHARED
+        STATIC
         ${PROTO_SRCS}
         ${PROTO_HDRS}
         ${GRPC_SRCS}
