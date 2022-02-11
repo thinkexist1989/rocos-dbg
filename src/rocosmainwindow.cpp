@@ -71,7 +71,8 @@ void RocosMainWindow::updateRobotState()
         prevJntNum = connectDlg->getJointNum();
         ui->driveList->clear();
         for(int i = 0; i < prevJntNum; i++) {
-            ui->driveList->addItem(connectDlg->getJointName(i));
+            ui->driveList->addItem(connectDlg->getJointName(i).simplified());
+            qDebug() << "Drive " << i << " : " << connectDlg->getJointName(i).simplified();
         }
     }
 
@@ -135,7 +136,14 @@ void RocosMainWindow::resizeEvent(QResizeEvent *event)
 
 //    QPixmap pixmap(":/res/light_red.png");
 //    ui->statusViz->setPixmap(pixmap.scaled(100, 100, Qt::KeepAspectRatioByExpanding));
-    //    QMainWindow::resizeEvent(event);
+
+    qDebug() << "drive list: " << ui->driveList->count();
+
+//    for(int i = 0; i < ui->driveList->count(); ++i) {
+//        ui->driveList->item(i)->setSizeHint(QSize( ui->driveListDockWidgetContents->size().width(), 0));
+//    }
+
+    QMainWindow::resizeEvent(event);
 }
 
 void RocosMainWindow::setDriveStatusViz(bool isEnabled)

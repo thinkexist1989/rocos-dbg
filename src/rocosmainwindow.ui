@@ -38,7 +38,7 @@
        <enum>QTabWidget::North</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="singleAxis">
        <attribute name="title">
@@ -1348,7 +1348,7 @@ QPushButton:enabled:pressed {
      <x>0</x>
      <y>0</y>
      <width>1272</width>
-     <height>25</height>
+     <height>23</height>
     </rect>
    </property>
    <property name="font">
@@ -1472,20 +1472,20 @@ QPushButton:enabled:pressed {
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget_2">
+  <widget class="QDockWidget" name="driveListDockWidget">
    <property name="windowTitle">
     <string>Detected Drives</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>2</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_2">
+   <widget class="QWidget" name="driveListDockWidgetContents">
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
       <widget class="QListWidget" name="driveList">
        <property name="font">
         <font>
-         <family>腾讯体</family>
+         <family>Microsoft YaHei UI</family>
         </font>
        </property>
       </widget>
@@ -1493,7 +1493,7 @@ QPushButton:enabled:pressed {
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget_3">
+  <widget class="QDockWidget" name="drivePropDockWidget">
    <property name="layoutDirection">
     <enum>Qt::LeftToRight</enum>
    </property>
@@ -1503,7 +1503,7 @@ QPushButton:enabled:pressed {
    <attribute name="dockWidgetArea">
     <number>2</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_3">
+   <widget class="QWidget" name="drivePropDockWidgetContents">
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="0" column="0">
       <widget class="QTableWidget" name="driveProp">
