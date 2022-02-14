@@ -22,6 +22,9 @@ using rocos::RobotCommand;
 using rocos::RobotCommandRequest;
 using rocos::RobotCommandResponse;
 
+using rocos::RobotInfoRequest;
+using rocos::RobotInfoResponse;
+
 namespace Ui {
 class ConnectDialog;
 }
@@ -58,31 +61,31 @@ private:
 
     bool event(QEvent *event) override;
 
-    std::unique_ptr<RobotService::Stub> _stub; //grpc存根
-    std::shared_ptr<Channel> _channel;
+    std::unique_ptr<RobotService::Stub> stub_; //grpc存根
+    std::shared_ptr<Channel> channel_;
 
-    RobotStateResponse response;
+    RobotStateResponse response_;
 
 private:
-    QString ipAddress = "172.31.1.37";
-    int     port = 30001;
+    QString ipAddress_ = "172.31.1.37";
+    int     port_ = 30001;
 
-    bool _isConnected = false;
+    bool isConnected_ = false;
 
 public:
     const QString getHardwareType();
-    inline const double  getMinCyclicTime() { return response.robot_state().hw_state().min_cycle_time(); }
-    inline const double  getMaxCyclicTime() { return response.robot_state().hw_state().max_cycle_time(); }
-    inline const double  getCurrCylicTime() { return response.robot_state().hw_state().current_cycle_time(); }
+    inline const double  getMinCyclicTime() { return response_.robot_state().hw_state().min_cycle_time(); }
+    inline const double  getMaxCyclicTime() { return response_.robot_state().hw_state().max_cycle_time(); }
+    inline const double  getCurrCylicTime() { return response_.robot_state().hw_state().current_cycle_time(); }
 
-    inline const int getJointNum() { return response.robot_state().joint_states_size(); }
+    inline const int getJointNum() { return response_.robot_state().joint_states_size(); }
 
     const QString getJointStatus(int id);
-    inline const QString getJointName(int id) { return QString(response.robot_state().joint_states(id).name().c_str()); }
-    inline const double  getJointPosition(int id) { return response.robot_state().joint_states(id).position(); }
-    inline const double  getJointVelocity(int id) { return response.robot_state().joint_states(id).velocity(); }
-    inline const double  getJointTorque(int id) { return response.robot_state().joint_states(id).acceleration(); }
-    inline const double  getJointLoad(int id) { return response.robot_state().joint_states(id).load(); }
+    inline const QString getJointName(int id) { return QString(response_.robot_state().joint_states(id).name().c_str()); }
+    inline const double  getJointPosition(int id) { return response_.robot_state().joint_states(id).position(); }
+    inline const double  getJointVelocity(int id) { return response_.robot_state().joint_states(id).velocity(); }
+    inline const double  getJointTorque(int id) { return response_.robot_state().joint_states(id).acceleration(); }
+    inline const double  getJointLoad(int id) { return response_.robot_state().joint_states(id).load(); }
 
 
     void powerOn();
