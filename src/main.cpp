@@ -24,7 +24,8 @@ int main(int argc, char *argv[])
     }
 
     QRibbon::install(&w);
-    w.show();
+    w.showMaximized();
+//    w.show();
     splash->finish(&w);
     return a.exec();
 }
