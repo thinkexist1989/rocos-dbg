@@ -63,7 +63,7 @@ void RocosMainWindow::updateRobotState()
     ui->hwTable->setItem(0, 1, new QTableWidgetItem(connectDlg->getHardwareType()));
     ui->hwTable->setItem(1, 1, new QTableWidgetItem(QString::number(connectDlg->getMinCyclicTime())));
     ui->hwTable->setItem(2, 1, new QTableWidgetItem(QString::number(connectDlg->getMaxCyclicTime())));
-    ui->hwTable->setItem(3, 1, new QTableWidgetItem(QString::number(connectDlg->getCurrCylicTime())));
+    ui->hwTable->setItem(3, 1, new QTableWidgetItem(QString::number(connectDlg->getCurrCyclicTime())));
 
     /////// Detected Drives ////////////
     static int prevJntNum = 0;

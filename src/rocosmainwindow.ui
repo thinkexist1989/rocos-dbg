@@ -1359,11 +1359,6 @@ QPushButton:enabled:pressed {
     </font>
    </property>
    <widget class="QMenu" name="menuEc_Master">
-    <property name="font">
-     <font>
-      <family>腾讯体</family>
-     </font>
-    </property>
     <property name="title">
      <string>Ec-Master</string>
     </property>
@@ -1382,7 +1377,14 @@ QPushButton:enabled:pressed {
     </property>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuDisplay">
+    <property name="title">
+     <string>Display</string>
+    </property>
+    <addaction name="actionUser_Unit"/>
+   </widget>
    <addaction name="menuEc_Master"/>
+   <addaction name="menuDisplay"/>
    <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -1629,6 +1631,20 @@ QPushButton:enabled:pressed {
      <family>Microsoft YaHei UI</family>
      <weight>50</weight>
      <bold>false</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionUser_Unit">
+   <property name="icon">
+    <iconset resource="../res.qrc">
+     <normaloff>:/res/user_unit.png</normaloff>:/res/user_unit.png</iconset>
+   </property>
+   <property name="text">
+    <string>User Unit</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Microsoft YaHei UI</family>
     </font>
    </property>
   </action>
