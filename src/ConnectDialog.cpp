@@ -11,12 +11,12 @@ ConnectDialog::ConnectDialog(QWidget *parent) :
 
     this->setWindowFlag(Qt::FramelessWindowHint);
 
-    ipAddress_ = ui->ipAddressEdit->text();
+    ip_address_ = ui->ipAddressEdit->text();
     port_ = ui->portEdit->text().toInt();
 
 
-    timerState = new QTimer(this);
-    connect(timerState, &QTimer::timeout, this, &ConnectDialog::getRobotState); //获取机器人状态
+    timer_state_ = new QTimer(this);
+    connect(timer_state_, &QTimer::timeout, this, &ConnectDialog::getRobotState); //获取机器人状态
 
 }
 
@@ -145,12 +145,12 @@ void ConnectDialog::setJointMode(int id, int mode) {
 }
 
 void ConnectDialog::shutdown() {
-    timerState->stop();
+    timer_state_->stop();
     while (channel_.use_count())
         channel_.reset();
 //    stub_.reset();
 //    delete stub_.release();
-    isConnected_ = false;
+    is_connected_ = false;
     emit connectState(false);
 }
 
@@ -184,6 +184,8 @@ ConnectDialog::moveSingleAxis(int id, double pos, double max_vel, double max_acc
     move->set_max_jerk(max_jerk);
     move->set_least_time(least_time);
 
+    move->set_raw_data(use_raw_data);
+
     ClientContext context; //这个只能使用一次，每次请求都需要重新创建
     Status status = stub_->WriteRobotCommmand(&context, request, &response);
 
@@ -211,6 +213,8 @@ ConnectDialog::moveMultiAxis(const QVector<double> &pos, const QVector<double> &
 
     move->set_least_time(least_time);
 
+    move->set_raw_data(use_raw_data);
+
     ClientContext context; //这个只能使用一次，每次请求都需要重新创建
     Status status = stub_->WriteRobotCommmand(&context, request, &response);
 
@@ -222,12 +226,12 @@ ConnectDialog::moveMultiAxis(const QVector<double> &pos, const QVector<double> &
 }
 
 void ConnectDialog::on_connectButton_clicked() {
-    if (isConnected_)
+    if (is_connected_)
         return;
 
 //    if(channel_)
 //        channel_.reset();
-    channel_ = grpc::CreateChannel(QString("%1:%2").arg(ipAddress_).arg(port_).toStdString(),
+    channel_ = grpc::CreateChannel(QString("%1:%2").arg(ip_address_).arg(port_).toStdString(),
                                    grpc::InsecureChannelCredentials());
 //    std::cout << channel_->GetState(true) <<std::endl;
 
@@ -252,11 +256,27 @@ void ConnectDialog::on_connectButton_clicked() {
 
     if (status.ok()) {
         emit connectState(true);
-        timerState->start(100);
+        timer_state_->start(100);
         this->close();
-        isConnected_ = true;
+        is_connected_ = true;
+
+        cnt_per_unit.resize(robot_info_response_.robot_info().joint_infos_size());
+        torque_per_unit.resize(robot_info_response_.robot_info().joint_infos_size());
+        load_per_unit.resize(robot_info_response_.robot_info().joint_infos_size());
+        ratio.resize(robot_info_response_.robot_info().joint_infos_size());
+        pos_zero_offset.resize(robot_info_response_.robot_info().joint_infos_size());
+
+        user_unit_name.resize(robot_info_response_.robot_info().joint_infos_size());
+        torque_unit_name.resize(robot_info_response_.robot_info().joint_infos_size());
+        load_unit_name.resize(robot_info_response_.robot_info().joint_infos_size());
 
         for(int i = 0; i < robot_info_response_.robot_info().joint_infos_size(); ++i) {
+            cnt_per_unit[i] = robot_info_response_.robot_info().joint_infos().at(i).cnt_per_unit();
+            torque_per_unit[i] = robot_info_response_.robot_info().joint_infos().at(i).torque_per_unit();
+            //TODO: load_per_unit
+            user_unit_name[i] = QString::fromStdString(robot_info_response_.robot_info().joint_infos().at(i).user_unit_name());
+            //TODO: torque_unit_name 及 load_unit_name
+
             qDebug() << "Joint " << i << ": ";
             qDebug() << "    cnt_per_unit: " << robot_info_response_.robot_info().joint_infos().at(i).cnt_per_unit();
             qDebug() << "    torque_per_unit: " << robot_info_response_.robot_info().joint_infos().at(i).torque_per_unit();
@@ -268,13 +288,13 @@ void ConnectDialog::on_connectButton_clicked() {
 
     } else {
         emit connectState(false);
-        isConnected_ = false;
+        is_connected_ = false;
     }
 
 }
 
 void ConnectDialog::on_ipAddressEdit_textChanged(const QString &ip) {
-    ipAddress_ = ip;
+    ip_address_ = ip;
 //    std::cout << "ip" << std::endl;
 }
 
@@ -286,6 +306,10 @@ void ConnectDialog::on_portEdit_textChanged(const QString &p) {
 
 void ConnectDialog::getRobotState() {
     RobotStateRequest request;
+
+    if(use_raw_data) {
+        request.set_raw_data(true);
+    }
 
 //    RobotStateResponse robot_state_response_;
     robot_state_response_.Clear();

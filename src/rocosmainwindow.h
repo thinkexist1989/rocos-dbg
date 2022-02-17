@@ -33,6 +33,8 @@ private slots:
 
     void on_actionConnect_triggered();
 
+    void on_actionUnit_triggered();
+
     void on_driveList_currentRowChanged(int currentRow);
 
     void on_enableBtn_clicked();
@@ -70,6 +72,9 @@ private slots:
     void on_syncPhase_clicked();
 
 private:
+    void updateUnitDisp();
+
+private:
     Ui::RocosMainWindow *ui;
     AboutDialog* aboutDlg = Q_NULLPTR;
     ConnectDialog* connectDlg = Q_NULLPTR;
@@ -78,9 +83,9 @@ private:
     bool _isConnected = false;
 
     bool _enableState = false;
-    double _max_vel = 100000;
-    double _max_acc = 100000;
-    double _max_jerk = 100000;
+    double _max_vel = 1;
+    double _max_acc = 1;
+    double _max_jerk = 10;
     double _ptpAbs1 = 0.0;
     double _ptpAbs2 = 0.0;
 

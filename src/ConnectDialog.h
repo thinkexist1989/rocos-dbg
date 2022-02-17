@@ -50,29 +50,6 @@ public:
 
     ~ConnectDialog();
 
-public slots:
-
-    void getRobotState();
-
-private:
-    Ui::ConnectDialog *ui;
-
-    QTimer *timerState;
-
-    bool event(QEvent *event) override;
-
-    std::unique_ptr<RobotService::Stub> stub_; //grpc存根
-    std::shared_ptr<Channel> channel_;
-
-    RobotInfoResponse robot_info_response_;
-    RobotStateResponse robot_state_response_;
-
-private:
-    QString ipAddress_ = "172.31.1.37";
-    int port_ = 30001;
-
-    bool isConnected_ = false;
-
 public:
     QString getHardwareType();
 
@@ -122,7 +99,7 @@ public:
     }
 
     inline QString getJointUserUnitName(int id) const {
-        return QString { robot_info_response_.robot_info().joint_infos().at(id).user_unit_name().c_str() };
+        return QString{robot_info_response_.robot_info().joint_infos().at(id).user_unit_name().c_str()};
     }
 
 
@@ -160,6 +137,10 @@ signals:
 
     void connectState(bool isConnected);
 
+public slots:
+
+    void getRobotState();
+
 private slots:
 
     void on_connectButton_clicked();
@@ -167,6 +148,39 @@ private slots:
     void on_ipAddressEdit_textChanged(const QString &ip);
 
     void on_portEdit_textChanged(const QString &p);
+
+public:
+    bool use_raw_data { false };
+
+    QVector<double>  cnt_per_unit;
+    QVector<double>  torque_per_unit;
+    QVector<double>  load_per_unit;
+    QVector<int32_t>  pos_zero_offset;
+    QVector<double>  ratio;
+    QVector<QString> user_unit_name;
+    QVector<QString> torque_unit_name;
+    QVector<QString> load_unit_name;
+
+private:
+    bool event(QEvent *event) override;
+
+    Ui::ConnectDialog *ui;
+
+    QTimer *timer_state_;
+
+    std::unique_ptr<RobotService::Stub> stub_; //grpc存根
+    std::shared_ptr<Channel> channel_;
+
+    RobotInfoResponse robot_info_response_;
+    RobotStateResponse robot_state_response_;
+
+private:
+    QString ip_address_ { "172.31.1.37" };
+
+    int port_  { 30001 };
+
+    bool is_connected_  { false };
+
 };
 
 #endif // CONNECTDIALOG_H

@@ -177,17 +177,39 @@ void RocosMainWindow::on_actionConnect_triggered()
     }
 }
 
+void RocosMainWindow::on_actionUnit_triggered() {
+
+    connectDlg->use_raw_data = !connectDlg->use_raw_data;
+
+    if(connectDlg->use_raw_data) { //原始数据
+        ui->actionUnit->setText(tr("Cnt Unit"));
+        ui->actionUnit->setIcon(QIcon(":/res/cnt_unit.png"));
+        _max_vel *= 10000; _max_acc *= 10000; _max_jerk *= 10000;
+    }
+    else { //用户单位
+        ui->actionUnit->setText(tr("User Unit"));
+        ui->actionUnit->setIcon(QIcon(":/res/user_unit.png"));
+        _max_vel /= 10000; _max_acc /= 10000; _max_jerk /= 10000;
+    }
+
+    // 更新用户单位显示
+    updateUnitDisp();
+}
+
+
 void RocosMainWindow::on_driveList_currentRowChanged(int currentRow)
 {
     //重新选择驱动器，则更新相应驱动器id
     drivePropId = currentRow;
     ui->tabWidget->setTabText(0, tr("Single Axis Motion [%1]").arg(ui->driveList->currentItem()->text()));
 
+    // 更新用户单位显示
+    updateUnitDisp();
 }
 
 void RocosMainWindow::on_enableBtn_clicked()
 {
-    if(drivePropId == -1 || _isConnected == false) {
+    if(drivePropId == -1 || !_isConnected) {
         return;
     }
 
@@ -343,4 +365,42 @@ void RocosMainWindow::on_syncTime_clicked()
 void RocosMainWindow::on_syncPhase_clicked()
 {
     connectDlg->setSync(2);
+}
+
+void RocosMainWindow::updateUnitDisp() {
+    if(drivePropId == -1 || !_isConnected) {
+        return;
+    }
+
+    if(connectDlg->use_raw_data) { //cnt unit显示
+        ui->actualPosUnit->setText("cnt");
+        ui->actualVelUnit->setText("cnt/sec");
+
+        ui->actualTorUnit->setText("1/1000");
+
+        ui->loadUnit->setText("mV");
+
+        ui->maxVelUnit->setText("cnt/sec");
+        ui->maxAccUnit->setText("cnt/sec^2");
+        ui->maxJerkUnit->setText("cnt/sec^3");
+
+        ui->ptpRelUnit->setText("[ cnt ]");
+        ui->ptpAbsUnit->setText("[ cnt ]");
+
+    }
+    else { //user unit显示
+        ui->actualPosUnit->setText(connectDlg->user_unit_name[drivePropId]);
+        ui->actualVelUnit->setText(connectDlg->user_unit_name[drivePropId] + "/sec");
+
+        ui->actualTorUnit->setText(tr("Nm"));
+
+        ui->loadUnit->setText("Nm");
+
+        ui->maxVelUnit->setText(connectDlg->user_unit_name[drivePropId] + "/sec");
+        ui->maxAccUnit->setText(connectDlg->user_unit_name[drivePropId] + "/sec^2");
+        ui->maxJerkUnit->setText(connectDlg->user_unit_name[drivePropId] + "/sec^3");
+
+        ui->ptpRelUnit->setText("[ " + connectDlg->user_unit_name[drivePropId] + " ]");
+        ui->ptpAbsUnit->setText("[ " + connectDlg->user_unit_name[drivePropId] + " ]");
+    }
 }
