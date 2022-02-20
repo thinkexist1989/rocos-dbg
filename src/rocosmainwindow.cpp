@@ -228,10 +228,11 @@ void RocosMainWindow::on_stopBtn_clicked()
         return;
     }
 
+    connectDlg->stopSingleAxis(drivePropId);
     // TODO:
-    double sign = ui->actualVel->text().toDouble() > 0 ? 1 : -1;
-//    connectDlg->moveSingleAxis(drivePropId, ui->actualPos->text().toDouble() + sign* pow(_max_vel, 2)/(2*_max_acc), _max_vel, _max_acc, _max_jerk, -1);
-    connectDlg->moveSingleAxis(drivePropId, ui->actualPos->text().toDouble(), _max_vel, _max_acc, _max_jerk, -1);
+//    double sign = ui->actualVel->text().toDouble() > 0 ? 1 : -1;
+////    connectDlg->moveSingleAxis(drivePropId, ui->actualPos->text().toDouble() + sign* pow(_max_vel, 2)/(2*_max_acc), _max_vel, _max_acc, _max_jerk, -1);
+//    connectDlg->moveSingleAxis(drivePropId, ui->actualPos->text().toDouble(), _max_vel, _max_acc, _max_jerk, -1);
 }
 
 void RocosMainWindow::on_ptpRelPlus_clicked()

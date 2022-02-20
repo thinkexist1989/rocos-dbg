@@ -327,3 +327,36 @@ void ConnectDialog::getRobotState() {
         std::cout << status.error_code() << ": " << status.error_message() << std::endl;
     }
 }
+
+void ConnectDialog::stopSingleAxis(int id) {
+    RobotCommandRequest request;
+    RobotCommandResponse response;
+
+    auto stop = request.mutable_command()->mutable_single_axis_command()->mutable_stop();
+    stop->set_id(id);
+
+    ClientContext context; //这个只能使用一次，每次请求都需要重新创建
+    Status status = stub_->WriteRobotCommmand(&context, request, &response);
+
+    if (status.ok()) {
+//        std::cout << "Send command Ok" << std::endl;
+    } else {
+        std::cerr << "Send command Error" << std::endl;
+    }
+}
+
+void ConnectDialog::stopMultiAxis() {
+    RobotCommandRequest request;
+    RobotCommandResponse response;
+
+    auto stop = request.mutable_command()->mutable_multi_axis_command()->mutable_stop();
+
+    ClientContext context; //这个只能使用一次，每次请求都需要重新创建
+    Status status = stub_->WriteRobotCommmand(&context, request, &response);
+
+    if (status.ok()) {
+//        std::cout << "Send command Ok" << std::endl;
+    } else {
+        std::cerr << "Send command Error" << std::endl;
+    }
+}

@@ -122,9 +122,13 @@ public:
     void moveSingleAxis(int id, double pos, double max_vel = -1, double max_acc = -1, double max_jerk = -1,
                         double least_time = -1);
 
+    void stopSingleAxis(int id);
+
     //////////Multi Axis Move/////////////////
     void moveMultiAxis(const QVector<double> &pos, const QVector<double> &max_vel, const QVector<double> &max_acc,
                        const QVector<double> &max_jerk, double least_time = -1);
+
+    void stopMultiAxis();
 
 signals:
 
