@@ -158,6 +158,8 @@ void ConnectDialog::setSync(int sync) {
     RobotCommandRequest request;
     RobotCommandResponse response;
 
+    sync = sync;
+
     request.mutable_command()->mutable_multi_axis_command()->mutable_sync()->set_value(
             static_cast<rocos::Synchronization>(sync));
 
@@ -214,6 +216,8 @@ ConnectDialog::moveMultiAxis(const QVector<double> &pos, const QVector<double> &
     move->set_least_time(least_time);
 
     move->set_raw_data(use_raw_data);
+
+    move->set_sync(static_cast<rocos::Synchronization>(sync_)); //设置同步
 
     ClientContext context; //这个只能使用一次，每次请求都需要重新创建
     Status status = stub_->WriteRobotCommmand(&context, request, &response);

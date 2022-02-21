@@ -178,6 +178,8 @@ private:
     RobotInfoResponse robot_info_response_;
     RobotStateResponse robot_state_response_;
 
+    int sync_ { 1 }; // 0->none 1->time 2->phase
+
 private:
     QString ip_address_ { "172.31.1.37" };
 
