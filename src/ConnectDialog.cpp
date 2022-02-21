@@ -158,10 +158,10 @@ void ConnectDialog::setSync(int sync) {
     RobotCommandRequest request;
     RobotCommandResponse response;
 
-    sync = sync;
+    sync_ = sync;
 
     request.mutable_command()->mutable_multi_axis_command()->mutable_sync()->set_value(
-            static_cast<rocos::Synchronization>(sync));
+            static_cast<rocos::Synchronization>(sync_));
 
     ClientContext context; //这个只能使用一次，每次请求都需要重新创建
     Status status = stub_->WriteRobotCommmand(&context, request, &response);

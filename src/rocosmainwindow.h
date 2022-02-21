@@ -41,6 +41,12 @@ private slots:
 
     void on_stopBtn_clicked();
 
+    void on_multiStopBtn_clicked();
+
+    void on_cancelBtn_clicked();
+
+    void on_multiCancelBtn_clicked();
+
     void on_ptpRelPlus_clicked();
 
     void on_maxVel_textChanged(const QString &arg1);

@@ -405,3 +405,15 @@ void RocosMainWindow::updateUnitDisp() {
         ui->ptpAbsUnit->setText("[ " + connectDlg->user_unit_name[drivePropId] + " ]");
     }
 }
+
+void RocosMainWindow::on_multiStopBtn_clicked() {
+    connectDlg->stopMultiAxis();
+}
+
+void RocosMainWindow::on_cancelBtn_clicked() {
+    qDebug() << "Cancel Button Clicked";
+}
+
+void RocosMainWindow::on_multiCancelBtn_clicked() {
+    qDebug() << "Multi Cancel Button Clicked";
+}

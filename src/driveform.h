@@ -55,9 +55,9 @@ private:
     double _ptpAbs = 0.0;
     double _ptpRel = 0.0;
 
-    double _maxVel = 100000.0;
-    double _maxAcc = 100000.0;
-    double _maxJerk =100000.0;
+    double _maxVel = 1.0;
+    double _maxAcc = 10.0;
+    double _maxJerk =10.0;
 };
 
 #endif // DRIVEFORM_H
