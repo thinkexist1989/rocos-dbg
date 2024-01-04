@@ -38,7 +38,7 @@
        <enum>QTabWidget::North</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="singleAxis">
        <attribute name="title">
@@ -96,7 +96,6 @@
                  <property name="font">
                   <font>
                    <family>Microsoft YaHei UI</family>
-                   <weight>50</weight>
                    <bold>false</bold>
                   </font>
                  </property>
@@ -1435,13 +1434,12 @@ QPushButton:enabled:pressed {
      <x>0</x>
      <y>0</y>
      <width>1272</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Microsoft YaHei UI</family>
-     <weight>50</weight>
      <bold>false</bold>
     </font>
    </property>
@@ -1455,7 +1453,6 @@ QPushButton:enabled:pressed {
     <property name="font">
      <font>
       <family>腾讯体</family>
-      <weight>50</weight>
       <bold>false</bold>
      </font>
     </property>
@@ -1700,9 +1697,7 @@ QPushButton:enabled:pressed {
     <string>Connect</string>
    </property>
    <property name="font">
-    <font>
-     <family>Microsoft YaHei UI</family>
-    </font>
+    <font/>
    </property>
   </action>
   <action name="actionAbout">
@@ -1714,11 +1709,7 @@ QPushButton:enabled:pressed {
     <string>Info</string>
    </property>
    <property name="font">
-    <font>
-     <family>Microsoft YaHei UI</family>
-     <weight>50</weight>
-     <bold>false</bold>
-    </font>
+    <font/>
    </property>
   </action>
   <action name="actionUnit">
@@ -1730,9 +1721,7 @@ QPushButton:enabled:pressed {
     <string>User Unit</string>
    </property>
    <property name="font">
-    <font>
-     <family>Microsoft YaHei UI</family>
-    </font>
+    <font/>
    </property>
   </action>
  </widget>
