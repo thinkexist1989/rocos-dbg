@@ -28,7 +28,7 @@ if(WIN32)
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 endif()
 
-    find_package(Qt5 COMPONENTS Widgets Network REQUIRED)
+    find_package(Qt6 COMPONENTS Widgets Network Gui REQUIRED)
 
 add_subdirectory(QRibbon)
 
@@ -124,4 +124,4 @@ else()
 endif()
 
 target_include_directories(rocos-dbg PUBLIC src)
-target_link_libraries(rocos-dbg PRIVATE Qt5::Widgets Qt5::Network QRibbon::qribbon rocos::protocol)
+target_link_libraries(rocos-dbg PRIVATE Qt6::Widgets Qt6::Network Qt6::Gui QRibbon::qribbon rocos::protocol)

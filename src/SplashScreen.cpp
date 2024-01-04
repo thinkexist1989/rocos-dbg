@@ -2,6 +2,7 @@
 
 #include <QTime>
 #include <QTimer>
+#include <QtCore>
 
 SplashScreen::SplashScreen(QPixmap& pixmap,int time) :
     QSplashScreen(pixmap),
@@ -52,14 +53,14 @@ void SplashScreen::slotUpdateProgress()
 
 void SplashScreen::generateAscendRandomNumber()
 {
-    int i;
-    qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
-    //生成100个大小在[0,100]之间的随机数
-    for(i=0;i<100;i++)
-    {
-        numbersList.append(qrand()%101);
-    }
-    //递增排序
-    qSort(numbersList.begin(),numbersList.end());
+//    int i;
+//    qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
+//    //生成100个大小在[0,100]之间的随机数
+//    for(i=0;i<100;i++)
+//    {
+//        numbersList.append(qrand()%101);
+//    }
+//    //递增排序
+//    qSort(numbersList.begin(),numbersList.end());
 }
 

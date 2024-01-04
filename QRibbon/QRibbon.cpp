@@ -8,6 +8,7 @@
 #include "QtCore/QTimer"
 #include "QtWidgets/QMainWindow"
 #include "QtCore/qcoreevent.h"
+#include <QActionGroup>
 
 const auto MINIMUM_HEIGHT = 62;
 

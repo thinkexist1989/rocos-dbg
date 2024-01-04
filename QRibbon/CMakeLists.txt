@@ -23,6 +23,6 @@ add_library(qribbon
 	QRibbon.qrc 
 )
 
-target_link_libraries(qribbon PRIVATE Qt5::Widgets)
+target_link_libraries(qribbon PRIVATE Qt6::Widgets)
 
 add_library(QRibbon::qribbon ALIAS qribbon)
